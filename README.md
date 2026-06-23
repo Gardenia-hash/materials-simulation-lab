@@ -15,65 +15,105 @@ My academic background is in physics and materials science. My current research 
 - Materials characterization
 - Python-based data analysis and visualization
 
-This repository will be used to organize small, reproducible projects related to simulation analysis and scientific data processing.
+This repository is used to organize small, reproducible projects related to simulation analysis and scientific data processing.
 
-## Planned Contents
+## Current Demo Projects
 
-This repository may include:
+### 1. Hysteresis Loop Analysis
 
-- Python scripts for simulation data processing
-- Jupyter notebooks for visualization and analysis
-- MuMax3 output analysis examples
-- Hysteresis loop and magnetization data analysis
-- Materials characterization data analysis demos
-- Notes on reproducible research workflows
+This demo analyzes a synthetic magnetic hysteresis dataset.
 
-## Planned Tools and Libraries
+Related files:
 
-This repository will mainly use Python for scientific data analysis and visualization.
+```text
+examples/sample_hysteresis_data.csv
+src/hysteresis_analysis.py
+docs/hysteresis_analysis_explanation.md
+```
+
+The analysis includes:
+
+- Plotting a hysteresis loop
+- Estimating remanent magnetization
+- Estimating coercive field
+- Saving the generated figure
+
+### 2. Skyrmion Trajectory Analysis
+
+This demo analyzes a synthetic skyrmion trajectory dataset.
+
+Related files:
+
+```text
+examples/sample_skyrmion_trajectory.csv
+src/skyrmion_trajectory_analysis.py
+docs/skyrmion_trajectory_explanation.md
+```
+
+The analysis includes:
+
+- Calculating skyrmion displacement
+- Calculating average velocity
+- Estimating skyrmion Hall angle
+- Plotting the trajectory
+- Plotting position as a function of time
+
+## Repository Structure
+
+```text
+materials-simulation-lab/
+│
+├── README.md
+├── LICENSE
+├── requirements.txt
+├── .gitignore
+│
+├── docs/
+│   ├── how_to_run.md
+│   ├── project_notes.md
+│   ├── hysteresis_analysis_explanation.md
+│   └── skyrmion_trajectory_explanation.md
+│
+├── examples/
+│   ├── sample_hysteresis_data.csv
+│   └── sample_skyrmion_trajectory.csv
+│
+└── src/
+    ├── hysteresis_analysis.py
+    └── skyrmion_trajectory_analysis.py
+```
+
+## How to Run
+
+The running instructions are provided in:
+
+```text
+docs/how_to_run.md
+```
+
+Basic workflow:
+
+```bash
+git clone https://github.com/Gardenia-hash/materials-simulation-lab.git
+cd materials-simulation-lab
+pip install -r requirements.txt
+python src/hysteresis_analysis.py
+python src/skyrmion_trajectory_analysis.py
+```
+
+## Tools and Libraries
+
+This repository mainly uses Python for scientific data analysis and visualization.
 
 Planned tools and libraries include:
 
 - Python
-- NumPy and Pandas for data processing
-- Matplotlib for plotting
-- SciPy for fitting and numerical analysis
-- Jupyter Notebook for interactive analysis
-- MuMax3 for micromagnetic simulation examples
-
-## Example Project Ideas
-
-### 1. Skyrmion Trajectory Analysis
-
-Analyze simulated skyrmion motion from MuMax3 output data.
-
-Possible outputs:
-
-- Position vs time
-- Velocity vs current density
-- Skyrmion Hall angle estimation
-- Trajectory visualization
-
-### 2. Hysteresis Loop Analysis
-
-Analyze magnetization-field data.
-
-Possible outputs:
-
-- Hysteresis loop plots
-- Coercive field extraction
-- Remanent magnetization calculation
-
-### 3. Materials Characterization Data Demo
-
-Analyze simple tabular data related to materials characterization.
-
-Possible outputs:
-
-- Distribution plots
-- Line profile analysis
-- Basic statistical analysis
-- Curve fitting
+- NumPy
+- Pandas
+- Matplotlib
+- SciPy
+- Jupyter Notebook
+- MuMax3
 
 ## Important Note
 
@@ -91,4 +131,8 @@ Only public demo data, synthetic data, self-written scripts, and reproducible ex
 
 ## Long-Term Goal
 
-The long-term goal of this repository is to build a clean and professional research coding portfolio connecting physics, materials science, simulation, data analysis, and research communication.
+The long-term goal of this repository is to build a clean and professional research coding portfolio connecting:
+
+```text
+Physics → Materials Science → Simulation → Data Analysis → Research Communication
+```
