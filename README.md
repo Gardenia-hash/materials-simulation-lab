@@ -28,13 +28,67 @@ This repository may include:
 - Materials characterization data analysis demos
 - Notes on reproducible research workflows
 
-## Repository Structure
+## Planned Tools and Libraries
 
-```text
-materials-simulation-lab/
-│
-├── notebooks/      # Jupyter notebooks for analysis and visualization
-├── src/            # Reusable Python scripts
-├── examples/       # Small public demo datasets
-├── docs/           # Project notes and documentation
-└── results/        # Generated figures and analysis outputs
+This repository will mainly use Python for scientific data analysis and visualization.
+
+Planned tools and libraries include:
+
+- Python
+- NumPy and Pandas for data processing
+- Matplotlib for plotting
+- SciPy for fitting and numerical analysis
+- Jupyter Notebook for interactive analysis
+- MuMax3 for micromagnetic simulation examples
+
+## Example Project Ideas
+
+### 1. Skyrmion Trajectory Analysis
+
+Analyze simulated skyrmion motion from MuMax3 output data.
+
+Possible outputs:
+
+- Position vs time
+- Velocity vs current density
+- Skyrmion Hall angle estimation
+- Trajectory visualization
+
+### 2. Hysteresis Loop Analysis
+
+Analyze magnetization-field data.
+
+Possible outputs:
+
+- Hysteresis loop plots
+- Coercive field extraction
+- Remanent magnetization calculation
+
+### 3. Materials Characterization Data Demo
+
+Analyze simple tabular data related to materials characterization.
+
+Possible outputs:
+
+- Distribution plots
+- Line profile analysis
+- Basic statistical analysis
+- Curve fitting
+
+## Important Note
+
+This repository is for public learning, research practice, and portfolio demonstration only.
+
+The following materials should not be uploaded:
+
+- Unpublished manuscript files
+- Confidential research data
+- Private supervisor or collaborator documents
+- Raw experimental data without permission
+- Personal documents
+
+Only public demo data, synthetic data, self-written scripts, and reproducible examples should be included.
+
+## Long-Term Goal
+
+The long-term goal of this repository is to build a clean and professional research coding portfolio connecting physics, materials science, simulation, data analysis, and research communication.
