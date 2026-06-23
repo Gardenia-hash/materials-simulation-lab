@@ -1,0 +1,230 @@
+// ============================================================================
+// neel_skyrmion_cip_transport_template.mx3
+//
+// General MuMax3 template for current-driven Néel skyrmion transport in a
+// ferromagnetic nanotrack.
+//
+// This script combines two common use cases:
+//
+//   1. Clean benchmark simulation
+//   2. Grain-disordered simulation
+//
+// To switch between clean and disordered cases, modify:
+//
+//   useDisorder := false   // clean benchmark
+//   useDisorder := true    // grain-disordered track
+//
+// This template is intended for reproducible simulation setup demonstration.
+// Full post-processed research datasets should be archived and cited separately,
+// for example through Zenodo.
+//
+// Author: Haohan Shi
+// ============================================================================
+
+
+// ============================================================================
+// 1. User-controlled simulation parameters
+// ============================================================================
+
+// ---------- simulation mode ----------
+useDisorder := true          // false = clean track, true = grain-disordered track
+
+// ---------- current and runtime ----------
+Jx      := 3e11              // current density in A/m^2
+runTime := 30e-9             // dynamic simulation time
+
+// ---------- random seed for grain disorder ----------
+seed := 2026                 // change this for seed-to-seed disorder ensemble
+
+// ---------- disorder parameters ----------
+disorder  := 0.08            // relative standard deviation of Ku1
+grainSize := 30e-9           // characteristic grain size
+nRegions  := 128             // number of grain regions
+
+// ---------- output intervals ----------
+table_dt := 20e-12           // table output interval
+save_dt  := 0.50e-9          // magnetization snapshot interval
+
+// ---------- solver settings ----------
+max_dt  := 1e-12
+min_dt  := 1e-15
+max_err := 1e-6
+
+
+// ============================================================================
+// 2. Geometry and mesh
+// ============================================================================
+
+Nx := 512
+Ny := 256
+Nz := 1
+
+dx := 1.5e-9
+dy := 1.5e-9
+dz := 1.0e-9
+
+sizeX := Nx * dx
+sizeY := Ny * dy
+
+SetGridSize(Nx, Ny, Nz)
+SetCellSize(dx, dy, dz)
+
+// Periodic boundary condition in y direction.
+// This helps reduce edge-induced transverse artifacts in clean benchmark tests.
+SetPBC(0, 5, 0)
+
+SetGeom(Rect(sizeX, sizeY))
+EdgeSmooth = 8
+
+
+// ============================================================================
+// 3. Base material parameters
+// ============================================================================
+
+// Co/Pt-like perpendicular ferromagnetic system
+Ms0    := 580e3
+A0     := 15e-12
+Ku0    := 0.80e6
+D0     := 3.2e-3
+alpha0 := 0.03
+xi0    := 0.10
+Bz0    := 30e-3
+
+// Spin-transfer torque parameters
+Pol0 := 0.40
+
+Msat  = Ms0
+Aex   = A0
+Ku1   = Ku0
+AnisU = vector(0, 0, 1)
+Dind  = D0
+
+// Use high damping only during relaxation.
+alpha = 0.50
+
+B_ext = vector(0, 0, Bz0)
+
+
+// ============================================================================
+// 4. Optional grain-induced anisotropy disorder
+// ============================================================================
+
+if useDisorder {
+
+    randSeed(seed)
+
+    ext_makegrains(grainSize, nRegions, seed)
+
+    for i := 0; i < nRegions; i++ {
+
+        KuLocal := Ku0 * (1 + disorder * randNorm())
+
+        // Safety lower bound to avoid unphysical negative or too-small Ku.
+        if KuLocal < 0.20 * Ku0 {
+            KuLocal = 0.20 * Ku0
+        }
+
+        Ku1.SetRegion(i, KuLocal)
+    }
+
+    SaveAs(regions, "grain_regions.ovf")
+}
+
+
+// ============================================================================
+// 5. Initial Néel skyrmion state
+// ============================================================================
+
+m = Uniform(0, 0, 1)
+
+skDiam := 90e-9
+
+// NeelSkyrmion(charge, polarity)
+// The sign convention should be kept consistent across the full simulation set.
+m.SetInShape(Circle(skDiam), NeelSkyrmion(1, -1))
+
+Relax()
+
+SaveAs(m, "m_relaxed.ovf")
+
+
+// ============================================================================
+// 6. Table outputs and metadata
+// ============================================================================
+
+ext_BubbleMz = -1
+
+TableAddVar(Jx,         "Jx_set",        "A/m2")
+TableAddVar(runTime,    "runtime_set",   "s")
+TableAddVar(alpha0,     "alpha_set",     "")
+TableAddVar(xi0,        "xi_set",        "")
+TableAddVar(useDisorder,"use_disorder",  "")
+TableAddVar(disorder,   "disorder_set",  "")
+TableAddVar(seed,       "seed_set",      "")
+
+TableAdd(ext_topologicalcharge)
+TableAdd(ext_bubblepos)
+TableAdd(ext_bubblespeed)
+
+TableAdd(E_total)
+TableAdd(E_exch)
+TableAdd(E_anis)
+TableAdd(E_demag)
+
+TableAutoSave(table_dt)
+AutoSave(m, save_dt)
+TableSave()
+
+
+// ============================================================================
+// 7. Dynamic current-driven transport stage
+// ============================================================================
+
+alpha = alpha0
+
+SetSolver(5)
+MaxDt  = max_dt
+MinDt  = min_dt
+MaxErr = max_err
+
+// Use Zhang-Li CIP spin-transfer torque.
+// Slonczewski torque is disabled for this FM CIP benchmark.
+DisableSlonczewskiTorque = true
+
+J   = vector(Jx, 0, 0)
+Pol = Pol0
+xi  = xi0
+
+Run(runTime)
+
+SaveAs(m, "m_final.ovf")
+TableSave()
+
+
+// ============================================================================
+// 8. Suggested parameter sweeps
+// ============================================================================
+//
+// Clean benchmark examples:
+//
+//   useDisorder := false
+//   disorder    := 0.00
+//   Jx          := 2e10, 5e10, 8e10, 1e11, 2e11, 3e11
+//   runTime     := 30e-9 or 50e-9
+//
+// Disorder ensemble examples:
+//
+//   useDisorder := true
+//   disorder    := 0.01, 0.02, 0.05, 0.08, 0.10
+//   Jx          := 3e11
+//   seed        := 101, 202, 303, 404, 505, ...
+//   runTime     := 30e-9
+//
+// Notes:
+//
+//   - For publication-level datasets, each run should use a unique output folder.
+//   - For large parameter scans, generate separate .mx3 files automatically using
+//     a Python script instead of manually editing this template.
+//   - Keep raw MuMax3 output, post-processed tables, and analysis scripts organized
+//     separately.
+// ============================================================================
