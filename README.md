@@ -31,6 +31,20 @@ This repository is used to organize small, reproducible projects related to simu
 
 ![Skyrmion Position vs Time](results/figures/skyrmion_position_vs_time.png)
 
+## Data Availability
+
+This repository uses lightweight synthetic demo datasets for code demonstration and portfolio purposes.
+
+The full research dataset related to the current-driven Néel skyrmion transport study is hosted on Zenodo and is described in:
+
+```text
+DATA.md
+```
+
+The associated manuscript is currently under review, and the Zenodo DOI is cited in the manuscript's Data Availability Statement.
+
+The full research dataset is not stored directly in this GitHub repository.
+
 ## Current Demo Projects
 
 ### 1. Hysteresis Loop Analysis
@@ -99,7 +113,9 @@ materials-simulation-lab/
 
 ## How to Run
 
-The running instructions are provided in:
+## How to Run
+
+The full running instructions are provided in:
 
 ```text
 docs/how_to_run.md
@@ -111,8 +127,14 @@ Basic workflow:
 git clone https://github.com/Gardenia-hash/materials-simulation-lab.git
 cd materials-simulation-lab
 pip install -r requirements.txt
-python src/hysteresis_analysis.py
-python src/skyrmion_trajectory_analysis.py
+python src/run_all.py
+```
+
+On Windows, if `python` or `pip` is not recognized, use:
+
+```bash
+py -m pip install -r requirements.txt
+py src/run_all.py
 ```
 
 ## Tools and Libraries
