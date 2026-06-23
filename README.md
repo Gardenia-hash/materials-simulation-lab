@@ -17,6 +17,20 @@ My academic background is in physics and materials science. My current research 
 
 This repository is used to organize small, reproducible projects related to simulation analysis and scientific data processing.
 
+## Example Results
+
+### Hysteresis Loop
+
+![Hysteresis Loop](results/figures/hysteresis_loop.png)
+
+### Skyrmion Trajectory
+
+![Skyrmion Trajectory](results/figures/skyrmion_trajectory.png)
+
+### Skyrmion Position vs Time
+
+![Skyrmion Position vs Time](results/figures/skyrmion_position_vs_time.png)
+
 ## Current Demo Projects
 
 ### 1. Hysteresis Loop Analysis
