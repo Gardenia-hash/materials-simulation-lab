@@ -88,8 +88,6 @@ The analysis includes:
 
 ## Repository Structure
 
-## Repository Structure
-
 ```text
 materials-simulation-lab/
 │
@@ -109,6 +107,9 @@ materials-simulation-lab/
 │   ├── sample_hysteresis_data.csv
 │   └── sample_skyrmion_trajectory.csv
 │
+├── mumax3/
+│   └── neel_skyrmion_cip_transport_template.mx3
+│
 ├── src/
 │   ├── hysteresis_analysis.py
 │   ├── skyrmion_trajectory_analysis.py
@@ -119,7 +120,6 @@ materials-simulation-lab/
         ├── hysteresis_loop.png
         ├── skyrmion_trajectory.png
         └── skyrmion_position_vs_time.png
-```
 
 ## How to Run
 
