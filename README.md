@@ -88,10 +88,13 @@ The analysis includes:
 
 ## Repository Structure
 
+## Repository Structure
+
 ```text
 materials-simulation-lab/
 │
 ├── README.md
+├── DATA.md
 ├── LICENSE
 ├── requirements.txt
 ├── .gitignore
@@ -106,12 +109,17 @@ materials-simulation-lab/
 │   ├── sample_hysteresis_data.csv
 │   └── sample_skyrmion_trajectory.csv
 │
-└── src/
-    ├── hysteresis_analysis.py
-    └── skyrmion_trajectory_analysis.py
+├── src/
+│   ├── hysteresis_analysis.py
+│   ├── skyrmion_trajectory_analysis.py
+│   └── run_all.py
+│
+└── results/
+    └── figures/
+        ├── hysteresis_loop.png
+        ├── skyrmion_trajectory.png
+        └── skyrmion_position_vs_time.png
 ```
-
-## How to Run
 
 ## How to Run
 
