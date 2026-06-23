@@ -24,6 +24,12 @@ Install the required Python libraries using:
 pip install -r requirements.txt
 ```
 
+On Windows, if `python` or `pip` is not recognized, use:
+
+```bash
+py -m pip install -r requirements.txt
+```
+
 The main libraries used in this repository include:
 
 - NumPy
@@ -32,43 +38,88 @@ The main libraries used in this repository include:
 - SciPy
 - Jupyter
 
-## 3. Run the Hysteresis Analysis Example
+## 3. Run All Analysis Scripts
 
-The first example script is:
+The easiest way to run all current demo analyses is:
+
+```bash
+python src/run_all.py
+```
+
+On Windows, you can use:
+
+```bash
+py src/run_all.py
+```
+
+This script will run:
 
 ```text
 src/hysteresis_analysis.py
+src/skyrmion_trajectory_analysis.py
 ```
 
-It reads the sample dataset:
+## 4. Run Individual Scripts
 
-```text
-examples/sample_hysteresis_data.csv
-```
+You can also run each analysis script separately.
 
-To run the script, use:
+### Hysteresis Loop Analysis
 
 ```bash
 python src/hysteresis_analysis.py
 ```
 
-## 4. Expected Output
+On Windows:
 
-The script will print basic analysis results, including:
+```bash
+py src/hysteresis_analysis.py
+```
 
-- Estimated remanent magnetization
-- Estimated coercive field
+### Skyrmion Trajectory Analysis
 
-It will also generate a hysteresis loop figure and save it to:
+```bash
+python src/skyrmion_trajectory_analysis.py
+```
+
+On Windows:
+
+```bash
+py src/skyrmion_trajectory_analysis.py
+```
+
+## 5. Expected Output
+
+The scripts will print basic analysis results in the terminal.
+
+The hysteresis analysis will estimate:
+
+- Remanent magnetization
+- Coercive field
+
+The skyrmion trajectory analysis will estimate:
+
+- x and y displacement
+- Average velocity
+- Skyrmion Hall angle
+
+The generated figures will be saved to:
+
+```text
+results/figures/
+```
+
+Expected output figures include:
 
 ```text
 results/figures/hysteresis_loop.png
+results/figures/skyrmion_trajectory.png
+results/figures/skyrmion_position_vs_time.png
 ```
 
-## 5. Notes
+## 6. Notes
 
-The current dataset is synthetic demo data.
+The current datasets are synthetic demo data.
 
-It is used only for learning, testing, and portfolio demonstration.
+They are used only for learning, testing, and portfolio demonstration.
 
 No unpublished research data or confidential experimental data should be uploaded to this repository.
