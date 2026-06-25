@@ -121,6 +121,8 @@ materials-simulation-lab/
         ├── skyrmion_trajectory.png
         └── skyrmion_position_vs_time.png
 
+```
+
 ## How to Run
 
 The full running instructions are provided in:
